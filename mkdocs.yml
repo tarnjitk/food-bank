@@ -1,0 +1,16 @@
+site_name: Data for Good Ottawa - Food Bank Project
+theme: readthedocs
+Authors: Peter Rabinovitch
+Date: March 22, 2015
+repo_url: https://github.com/DenisCarriere/food-bank
+base_url: http://geocoder.readthedocs.org
+markdown_extensions: ['tables', 'toc', 'meta', 'fenced_code']
+pages:
+# Home Page
+# =========
+- ['index.md', 'Home']
+
+# User Guide
+# ==========
+- ['Preparing_the_Extract.md', 'User Guide', 'Preparing the Extract']
+- ['Using_the_Extract.md', 'User Guide', 'Using the Extract']
