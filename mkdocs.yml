@@ -14,3 +14,4 @@ pages:
 # ==========
 - ['Preparing_the_Extract.md', 'User Guide', 'Preparing the Extract']
 - ['Using_the_Extract.md', 'User Guide', 'Using the Extract']
+- ['Using the Extract.Rmd', 'User Guide', 'Using the Extract (R)']
