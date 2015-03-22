@@ -23,7 +23,6 @@ Data provided by Gary (OFB) to Trent (D4G) early March, 2015. Data consisted of 
 
 ```{r}
 opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE,fig.width=8, fig.height=5)
-library(dplyr)
 library(ggplot2)
 library(lubridate)
 library(tidyr)
