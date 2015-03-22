@@ -341,7 +341,7 @@ data %>%
   geom_point(size=3.2) 
 ~~~~
 
-![plot2][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot2.png]
+![plot2][plot2]
 
 and we see that it is frequently the case, but not always. This will
 need clarification. I suspect that the points not on the 45 degree line
@@ -454,7 +454,7 @@ data %>%
   scale_x_continuous(labels=abbreviate,limits=c(2003,2016))
 ~~~~
 
-![plot3][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png]
+![plot3][plot3]
 
 ~~~~ {.r}
 library(GGally)
@@ -465,7 +465,7 @@ data %>%
   ggpairs(axisLabels="none") 
 ~~~~
 
-![plot4][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png]
+![plot4][plot4]
 
 ~~~~ {.r}
 data %>%
@@ -483,7 +483,7 @@ data %>%
   ggtitle('Agency A0055 Peanut Butter Orders')
 ~~~~
 
-![plot5][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png]
+![plot5][plot5]
 
 ~~~~ {.r}
 data %>%
@@ -492,7 +492,7 @@ data %>%
   geom_point()   
 ~~~~
 
-![plot6][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png]
+![plot6][plot6]
 
 ~~~~ {.r}
 data %>%
@@ -503,4 +503,13 @@ data %>%
   ylim(0,50)
 ~~~~
 
-![plot7][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png]
+![plot7][plot7]
+
+
+[plot1]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png
+[plot2]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot2.png
+[plot3]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot3.png
+[plot4]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot4.png
+[plot5]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot5.png
+[plot6]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot6.png
+[plot7]:https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot7.png

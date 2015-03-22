@@ -634,7 +634,7 @@ data %>%
   scale_x_continuous(labels=abbreviate,limits=c(2003,2016))
 ~~~~
 
-![plot1][https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png]
+![plot1][plot1]
 
 Food Items and Categories
 =========================
@@ -1149,3 +1149,6 @@ case=2):Stew:Stew (1 case=2):.(No SubCategory1 Specified)”
 “YOGURT/DAIRY:YogurtDairy:Yogurt:Yogurt/Dairy”
 
 Also, what does “(1 case=2)” mean?
+
+
+[plot1]: https://raw.githubusercontent.com/DenisCarriere/food-bank/master/docs/images/plot1.png
