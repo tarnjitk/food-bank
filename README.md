@@ -1,4 +1,4 @@
-# OFB
+# Ottawa Food Bank Project
 The goal of this project is to help the Ottawa Food Bank understand the demand they experience for food: where is the demand, what affects it, and can we predict the demand?
 
 # Getting started
