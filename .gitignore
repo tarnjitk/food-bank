@@ -65,3 +65,12 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Data files
+data/
+
+# Results
+output/
+
+# Wierd random file
+.DS_Store
