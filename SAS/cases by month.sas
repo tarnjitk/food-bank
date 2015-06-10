@@ -1,3 +1,4 @@
+
 * confirms which years are in data;
 proc freq data = data1; tables invoice_year; run;
 
@@ -75,29 +76,6 @@ run;
 proc sort data = data3; by category; run;
 
 
-data data3_alt_1;
-  set data3_alt;
-  invoice_month=month(invoice_datepart);
-  invoice_year=year(invoice_datepart);
-run;
-
-ods graphics on / width=1000;
-title "Total purchased cases for Purchased/Donated (guaranteed inventory) category";
-proc sgplot data=data3_alt_1;
-  scatter x=invoice_month y=month_purchased /group=invoice_year;
-  xaxis values=(1 to 12 by 1);
-   
-  styleattrs 
-    datacontrastcolors=(grey orange lightblue)
-    datasymbols=(CircleFilled);
- 
-  format category $category.;
-  %filter_purchased_for_A;
-run;
-proc export data=data3_alt_1
-   outfile= '/folders/myfolders/D4G/total_purchased_cases_by_month.txt'
-   dbms=tab;
-run;
 
 
 

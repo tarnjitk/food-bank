@@ -1,7 +1,7 @@
-* compare mean cases delivered by month;
-libname d4g '/folders/myfolders/D4G/food-bank/data';
-
-* macro prep;
+/* PURPOSE: This program loads the OFB data as downloaded from D4G */
+/* and does basic setup for later analysis on it.				   */
+ 
+* load macros prep;
 %macro filter_purchased_only(category);
   where category in ("&category") and
   		(year(invoice_datepart) ge 2013 or
@@ -12,8 +12,6 @@ libname d4g '/folders/myfolders/D4G/food-bank/data';
   		(year(invoice_datepart) ge 2013 or
   		(year(invoice_datepart) eq 2012 and month(invoice_datepart) ge 6));			     
 %mend;
-
-
 
 * data prep (this is the food bank dataset);
 data data1;
