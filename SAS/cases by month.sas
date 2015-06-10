@@ -1,8 +1,3 @@
-* setup;
-proc contents data = data1; run;
-proc print data = data1 (obs=10); run;
-
-
 * confirms which years are in data;
 proc freq data = data1; tables invoice_year; run;
 

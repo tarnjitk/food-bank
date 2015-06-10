@@ -1,5 +1,5 @@
 * compare mean cases delivered by month;
-libname d4g '/folders/myfolders/D4G/';
+libname d4g '/folders/myfolders/D4G/food-bank/data';
 
 * macro prep;
 %macro filter_purchased_only(category);
