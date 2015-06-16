@@ -32,7 +32,8 @@ run;
 data OFB_data_by_month;
   set OFB_data_by_month;
   invoice_year = year(invoice_datepart); 
-  *invoice_month = month(invoice_datepart); 
+  invoice_month = month(invoice_datepart); 
+    
 run;
 
 
@@ -47,6 +48,7 @@ proc sgplot data=OFB_data_by_month;
     datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
   xaxis type=discrete;
+  yaxis min=0;
   
   keylegend / position=top;
  
@@ -82,7 +84,7 @@ proc sgpanel data=OFB_data_by_group;
     datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
 
-  rowaxis type=discrete;
+  colaxis type=discrete;
 
   keylegend / position=top;
  
@@ -92,7 +94,7 @@ run;
 
 
 /* ************************* */
-* then by food;
+* then by food (in can group);
 proc means data = OFB_data_2 noprint nway;
   var DeliveredQTY Q_Purchased;
   class invoice_datepart Category group food;
@@ -105,9 +107,11 @@ data OFB_data_by_food;
   invoice_year = year(invoice_datepart); 
 run;
 
+
 ods graphics / attrpriority=none;
-title "Total purchased cases in guaranteed inventory, by food";
+title "Total purchased cases in guaranteed inventory, by food item in group = can";
 proc sgpanel data=OFB_data_by_food;
+  where group = "Can";
   panelby food;
   scatter x=invoice_datepart y=purchased_cases /
       group=invoice_year
@@ -117,7 +121,7 @@ proc sgpanel data=OFB_data_by_food;
     datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
     
-  rowaxis type=discrete;
+  colaxis type=discrete;
 
   
   keylegend / position=top;
