@@ -34,6 +34,32 @@ proc export data=count_cases_delivered_1
    dbms=tab;
 run;
 
+/* ANOTHER POTENTIAL ALTERNATIVE TO COUNTING ORDERS */
+* calculate average delivered cases per order by year;
+proc means data = data1 noprint nway;
+  var DeliveredQTY;
+  class invoice_year;
+  output out=count_cases_delivered_1 sum=;
+run;
+
+data data2;
+  set count_cases_delivered_1;
+  avg_deliverd_per_order = DeliveredQTY / _FREQ_;
+run;
+proc print data = data2 (obs=10); run;
+
+
+title "cases per year, all programs";
+proc sgplot data=count_cases_delivered_1;
+  series x= invoice_year y=DeliveredQTY;
+  yaxis min=0;
+run;
+title;
+proc export data=count_cases_delivered_1
+   outfile= '/folders/myfolders/D4G/count_cases_delivered_per_year.txt'
+   dbms=tab;
+run;
+
 
 * calculate agencies assisted;
 proc means data = data1 nway noprint;
