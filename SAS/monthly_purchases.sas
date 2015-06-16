@@ -1,18 +1,5 @@
 /* PURPOSE: summarizes data by month to analyze purchasing trends */
-
-* format prep;
-proc format;
-  value $category
-  
-  "A"="Purchased / Donated"	
-  "B"="Baby Cupboard"	
-  "C"="Donated"	
-  "D"="School Program"	
-  "E"="City Harvest"	
-  "F"="Fresh Harvest"
-  "G"="Christmas Cheer"	  
-;
-run;
+/* run setup.sas first */
 
 * data prep (this is the food bank dataset);
 data OFB_data_1;
@@ -27,8 +14,8 @@ data OFB_data_2;
   set OFB_data_1;
   where /*month_delivery ne 0 and*/
 		category in ("A") and
-  		(year(invoice_datepart) ge 2013 or
-  		(year(invoice_datepart) eq 2012 and month(invoice_datepart) ge 6));			     
+  		year(invoice_datepart) ge 2013;
+  		* year(invoice_datepart) eq 2012 and month(invoice_datepart) ge 6;			     
 run;
 
 
@@ -56,7 +43,7 @@ proc sgpanel data=OFB_data_by_group;
   	  markerattrs=(size=15);
    
   styleattrs 
-    datacontrastcolors=(grey orange lightblue)
+    datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
 
   keylegend / position=top;
@@ -87,7 +74,7 @@ proc sgpanel data=OFB_data_by_food;
   	  markerattrs=(size=15);
    
   styleattrs 
-    datacontrastcolors=(grey orange lightblue)
+    datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
 
   keylegend / position=top;

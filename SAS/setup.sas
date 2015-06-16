@@ -1,17 +1,7 @@
 /* PURPOSE: This program loads the OFB data as downloaded from D4G */
 /* and does basic setup for later analysis on it.				   */
  
-* load macros prep;
-%macro filter_purchased_only(category);
-  where category in ("&category") and
-  		(year(invoice_datepart) ge 2013 or
-  		(year(invoice_datepart) eq 2012 and month(invoice_datepart) ge 6));			     
-%mend;
-%macro filter_purchased_exclude_harvest;
-  where category not in ("E,F") and
-  		(year(invoice_datepart) ge 2013 or
-  		(year(invoice_datepart) eq 2012 and month(invoice_datepart) ge 6));			     
-%mend;
+libname d4g "/folders/myfolders/D4G/food-bank/data";
 
 * data prep (this is the food bank dataset);
 data data1;
