@@ -18,8 +18,43 @@ data OFB_data_2;
   		* year(invoice_datepart) eq 2012 and month(invoice_datepart) ge 6;			     
 run;
 
+/* ************************* */
+* summarize by month;
+proc means data = OFB_data_2 noprint nway;
+  var DeliveredQTY Q_Purchased;
+  class invoice_datepart Category;
+  output out=OFB_data_by_month sum(DeliveredQTY Q_Purchased)=delivered_cases purchased_cases;
+  
+  format invoice_datepart monyy7.;
+run;
+data OFB_data_by_month;
+  set OFB_data_by_month;
+  invoice_year = year(invoice_datepart); 
+  *invoice_month = month(invoice_datepart); 
+run;
 
-* summarize, first by group;
+
+ods graphics / attrpriority=none;
+title "Total purchased cases in guaranteed inventory";
+proc sgplot data=OFB_data_by_month;
+  scatter x=invoice_datepart y=purchased_cases /
+      group=invoice_year
+  	  markerattrs=(size=15);
+   
+  styleattrs 
+    datacontrastcolors=(orange lightblue gray)
+    datasymbols=(CircleFilled);
+  xaxis type=discrete;
+  
+  keylegend / position=top;
+ 
+  format category $category.
+  		 invoice_datepart monname3.;
+run;
+
+
+/* ************************* */
+* summarize by group;
 proc means data = OFB_data_2 noprint nway;
   var DeliveredQTY Q_Purchased;
   class invoice_datepart Category group;
@@ -35,7 +70,7 @@ run;
 
 
 ods graphics / attrpriority=none;
-title "Total purchased cases for Purchased/Donated (guaranteed inventory) category";
+title "Total purchased cases in guaranteed inventory, by group";
 proc sgpanel data=OFB_data_by_group;
   panelby group;
   scatter x=invoice_month y=purchased_cases /
@@ -46,11 +81,17 @@ proc sgpanel data=OFB_data_by_group;
     datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
 
+ rowaxis type=discrete;
+
+
   keylegend / position=top;
  
-  format category $category.;
+  format category $category.
+  		 invoice_datepart monname3.;
 run;
 
+
+/* ************************* */
 * then by food;
 proc means data = OFB_data_2 noprint nway;
   var DeliveredQTY Q_Purchased;
@@ -66,7 +107,7 @@ data OFB_data_by_food;
 run;
 
 ods graphics / attrpriority=none;
-title "Total purchased cases for Purchased/Donated (guaranteed inventory) category";
+title "Total purchased cases in guaranteed inventory, by food";
 proc sgpanel data=OFB_data_by_food;
   panelby food;
   scatter x=invoice_month y=purchased_cases /
@@ -76,10 +117,14 @@ proc sgpanel data=OFB_data_by_food;
   styleattrs 
     datacontrastcolors=(orange lightblue gray)
     datasymbols=(CircleFilled);
+    
+  rowaxis type=discrete;
 
+  
   keylegend / position=top;
   inset group;
-  format category $category.;
+  format category $category.
+  		 invoice_datepart monname3.;
 run;
 
 
