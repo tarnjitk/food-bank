@@ -6,5 +6,4 @@ The goal of this project is to help the Ottawa Food Bank understand the demand t
 
 # Files
 * An introduction to the dataset in R is in the `/docs` folder
-* Code to import the datasets (e.g. OFB dataset, agency details, religious holidays, etc.) is in the `/setup code` folder
-* Code that does some analytic work on the data is in the `/SAS` folder
+* Some code that does analytic work on the data is in the `/SAS` folder
