@@ -32,3 +32,26 @@ proc format;
 ;
 
 run;
+
+%macro setup_agency_program_2;
+proc freq data = data1 noprint; 
+  tables invoice_year*customer_code /out=agency_by_year;
+run;
+data agency_program_1 (keep=CustomerCode program ProgramAudience ProgramNeed);
+  set d4g.agency_v6;
+run;
+
+proc sort data = agency_program_1; by customerCode; run;
+proc sort data = agency_by_year; by customer_Code; run;
+
+data agency_program_2 (keep=invoice_year Customer_Code program ProgramAudience ProgramNeed)
+	 agency_noMatch ofb_noMatch;
+  merge agency_by_year	  (in=inOFB)
+  	  	agency_program_1  (in=inAcy rename=(customerCode=customer_code));
+  by customer_code;
+  
+  if inOFB and inAcy then output agency_program_2;
+  else if inAcy then output agency_noMatch;
+  else if inOFB then output ofb_noMatch;
+run;
+%mend;

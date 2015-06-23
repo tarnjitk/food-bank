@@ -36,29 +36,32 @@ run;
 
 /* ANOTHER POTENTIAL ALTERNATIVE TO COUNTING ORDERS */
 * calculate average delivered cases per order by year;
-proc means data = data1 noprint nway;
-  var DeliveredQTY;
-  class invoice_year;
-  output out=count_cases_delivered_1 sum=;
-run;
-
 data data2;
   set count_cases_delivered_1;
   avg_deliverd_per_order = DeliveredQTY / _FREQ_;
 run;
 proc print data = data2 (obs=10); run;
 
-
-title "cases per year, all programs";
-proc sgplot data=count_cases_delivered_1;
-  series x= invoice_year y=DeliveredQTY;
-  yaxis min=0;
+title "Cases per order, all programs";
+proc sgplot data=data2;
+  vbar invoice_year / response = DeliveredQTY;
+  *vline invoice_year / response = avg_deliverd_per_order y2axis 
+  					   lineattrs=(thickness=5);
+  y2axis min=0;
 run;
 title;
-proc export data=count_cases_delivered_1
+
+proc export data=data2
    outfile= '/folders/myfolders/D4G/count_cases_delivered_per_year.txt'
    dbms=tab;
 run;
+
+* total cases delivered;
+proc means data = data1 nway sum;
+  var DeliveredQTY;
+run;
+
+
 
 
 * calculate agencies assisted;
@@ -69,7 +72,8 @@ proc means data = data1 nway noprint;
 run;
 proc freq data=count_agencies_1 noprint;
   tables invoice_year /out=count_agencies_2;
-  run;
+run;
+    
 title "Active agencies per year, all programs";
 proc sgplot data=count_agencies_2;
   series x=invoice_year y=count;
@@ -87,6 +91,38 @@ run;
 proc freq data=agency_program_2 noprint;
   tables invoice_year*program/out=count_agencies_by_program_2;
 run;
+
+proc means data = count_agencies_by_program_2 noprint nway sum;
+  var count;
+  class invoice_year;
+  output out=sum_agencies_by_year (drop=_type_ _freq_) sum=sum_agencies;
+run;
+data match;
+  merge count_agencies_by_program_2 
+    	sum_agencies_by_year;
+  by invoice_year;
+run;
+data match2;
+  set match;
+  pct = count / sum_agencies;
+run;
+proc print data = match2; run;
+
+proc sgplot data = match2;
+  vbar invoice_year / response = pct
+  						group = program;
+  						
+  keylegend / position=right;
+run;
+proc export data=match2
+   outfile= '/folders/myfolders/D4G/pct_breakdown_of_agencies_by_program.txt'
+   dbms=tab;
+run;
+
+proc print data = match2; 
+  where program = "Animal Shelter";
+run;
+
 title "Active agencies per year, excluding Animal Shelter";
 proc sgplot data=count_agencies_by_program_2;
   series x=invoice_year y=count /group=program lineattrs=(thickness=3);
